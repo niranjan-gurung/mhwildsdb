@@ -10,15 +10,18 @@ namespace mhwildsdb.Controllers
         ISkillService _skillService,
         ILogger<SkillController> _logger) : ControllerBase
     {
-
-        [HttpGet("skills")]
+        [HttpGet]
         public async Task<IActionResult> GetAllSkillsAsync()
         {
             var skills = await _skillService.GetAllSkillsAsync();
+
+            if (skills is null)
+                throw new Exception("test exception");
+
             return Ok(skills);
         }
 
-        [HttpGet("skills/{id:Guid}")]
+        [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetSkillByIdAsync(Guid id)
         {
             var skill = await _skillService.GetSkillByIdAsync(id);
@@ -29,21 +32,21 @@ namespace mhwildsdb.Controllers
             return Ok(skill);
         }
 
-        [HttpPost("skills")]
+        [HttpPost]
         public async Task<IActionResult> CreateSkillAsync(CreateSkillDto command)
         {
             var skill = await _skillService.CreateSkillAsync(command);
             return CreatedAtAction(nameof(GetSkillByIdAsync), new { id = skill.Id }, skill);
         }
 
-        [HttpPut("skills/{id:Guid}")]
+        [HttpPut("{id:Guid}")]
         public async Task<IActionResult> UpdateSkillAsync(Guid id, UpdateSkillDto command)
         {
             await _skillService.UpdateSkillAsync(id, command);
             return NoContent();
         }
 
-        [HttpDelete("skills/{id:Guid}")]
+        [HttpDelete("{id:Guid}")]
         public async Task<IActionResult> DeleteSkillAsync(Guid id)
         {
             await _skillService.DeleteSkillAsync(id);
