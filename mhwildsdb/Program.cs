@@ -1,4 +1,5 @@
 using mhwildsdb.Persistance;
+using mhwildsdb.Services;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -9,6 +10,8 @@ builder.Configuration.AddUserSecrets<Program>();
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+
+builder.Services.AddTransient<ISkillService, SkillService>();
 
 // register database context
 builder.Services.AddDbContext<MhwildsDbContext>(options => 
