@@ -1,0 +1,28 @@
+using mhwildsdb.Persistance;
+using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// contains db connection string
+builder.Configuration.AddUserSecrets<Program>();
+
+builder.Services.AddControllers();
+builder.Services.AddOpenApi();
+
+// register database context
+builder.Services.AddDbContext<MhwildsDbContext>(options => 
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.MapScalarApiReference();
+}
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+app.Run();
