@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace mhwildsdb.Entities
+﻿namespace mhwildsdb.Entities
 {
     public class Skill : EntityBase
     {

@@ -3,48 +3,72 @@ using mhwildsdb.Persistance;
 using mhwildsdb.Services;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
 
-// contains db connection string
-builder.Configuration.AddUserSecrets<Program>();
-
-builder.Services.AddProblemDetails(options =>
+try
 {
-    options.CustomizeProblemDetails = ctx =>
+    Log.Information("Starting server..");
+    
+    var builder = WebApplication.CreateBuilder(args);
+
+    // contains db connection string
+    builder.Configuration.AddUserSecrets<Program>();
+
+    builder.Services.AddSerilog((services, lc) => lc
+        .ReadFrom.Configuration(builder.Configuration)
+        .ReadFrom.Services(services));
+
+    builder.Services.AddProblemDetails(options =>
     {
-        ctx.ProblemDetails.Extensions["traceId"] = ctx.HttpContext.TraceIdentifier;
-        ctx.ProblemDetails.Extensions["timestamp"] = DateTime.UtcNow;
-        ctx.ProblemDetails.Instance = $"{ctx.HttpContext.Request.Method} {ctx.HttpContext.Request.Path}";
-    };
-});
+        options.CustomizeProblemDetails = ctx =>
+        {
+            ctx.ProblemDetails.Extensions["traceId"] = ctx.HttpContext.TraceIdentifier;
+            ctx.ProblemDetails.Extensions["timestamp"] = DateTime.UtcNow;
+            ctx.ProblemDetails.Instance = $"{ctx.HttpContext.Request.Method} {ctx.HttpContext.Request.Path}";
+        };
+    });
 
-builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+    builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
-builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+    builder.Services.AddControllers();
+    builder.Services.AddOpenApi();
 
-builder.Services.AddTransient<ISkillService, SkillService>();
+    builder.Services.AddTransient<ISkillService, SkillService>();
 
-// register database context
-builder.Services.AddDbContext<MhwildsDbContext>(options => 
-    options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
+    // register database context
+    builder.Services.AddDbContext<MhwildsDbContext>(options => 
+        options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
 
-var app = builder.Build();
+    var app = builder.Build();
 
-app.UseExceptionHandler();
+    app.UseExceptionHandler();
 
-if (app.Environment.IsDevelopment())
+    if (app.Environment.IsDevelopment())
+    {
+        app.MapOpenApi();
+        app.MapScalarApiReference();
+        app.UseSerilogRequestLogging();
+    }
+
+    /* CORS setup 
+     * add origins for python parser here...
+     */
+
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+    app.MapControllers();
+    app.Run();
+}
+catch (Exception ex)
 {
-    app.MapOpenApi();
-    app.MapScalarApiReference();
+    Log.Fatal(ex, "Server terminated unexpectedly.");
+}
+finally
+{
+    Log.CloseAndFlush();
 }
 
-/* CORS setup 
- * add origins for python parser here...
- */
-
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
-app.Run();

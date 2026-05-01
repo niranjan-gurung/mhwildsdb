@@ -16,6 +16,8 @@ namespace mhwildsdb.Services
             await _context.Skills.AddAsync(skill);
             await _context.SaveChangesAsync();
 
+            _logger.LogInformation("Created new skill with ID {SkillId}", skill.Id);
+
             return new SkillDto(
                 skill.Id, 
                 skill.Name, 
@@ -61,8 +63,9 @@ namespace mhwildsdb.Services
 
             skill.Update(command.Name, command.Type, command.Description);
             await _context.SaveChangesAsync();
+            _logger.LogInformation("Updated skill with ID {SkillId}", skill.Id);
         }
-        
+
         public async Task DeleteSkillAsync(Guid id)
         {
             var skill = await _context.Skills.FindAsync(id);
