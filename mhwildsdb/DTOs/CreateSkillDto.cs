@@ -1,4 +1,3 @@
-﻿namespace mhwildsdb.DTOs
-{
-    public sealed record CreateSkillDto(string Name, string Type, string Description);
-}
+﻿namespace mhwildsdb.DTOs;
+
+public sealed record CreateSkillDto(string Name, string Type, string Description);

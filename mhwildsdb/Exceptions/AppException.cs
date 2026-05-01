@@ -1,12 +1,11 @@
 ﻿using System.Net;
 
-namespace mhwildsdb.Exceptions
+namespace mhwildsdb.Exceptions;
+
+public abstract class AppException(
+    string message, 
+    HttpStatusCode statusCode = HttpStatusCode.InternalServerError) 
+    : Exception(message)
 {
-    public abstract class AppException(
-        string message, 
-        HttpStatusCode statusCode = HttpStatusCode.InternalServerError) 
-        : Exception(message)
-    {
-        public HttpStatusCode StatusCode { get; } = statusCode;
-    }
+    public HttpStatusCode StatusCode { get; } = statusCode;
 }

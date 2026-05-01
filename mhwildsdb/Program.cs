@@ -1,3 +1,4 @@
+using FluentValidation;
 using mhwildsdb.Exceptions.Handlers;
 using mhwildsdb.Persistance;
 using mhwildsdb.Services;
@@ -21,6 +22,8 @@ try
     builder.Services.AddSerilog((services, lc) => lc
         .ReadFrom.Configuration(builder.Configuration)
         .ReadFrom.Services(services));
+
+    builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
     builder.Services.AddProblemDetails(options =>
     {
