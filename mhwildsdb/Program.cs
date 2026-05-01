@@ -1,4 +1,4 @@
-using mhwildsdb.Exceptions;
+using mhwildsdb.Exceptions.Handlers;
 using mhwildsdb.Persistance;
 using mhwildsdb.Services;
 using Microsoft.EntityFrameworkCore;

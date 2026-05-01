@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace mhwildsdb.Exceptions
+namespace mhwildsdb.Exceptions.Handlers
 {
     public sealed class GlobalExceptionHandler(
         IProblemDetailsService _problemDetails,
@@ -22,7 +22,7 @@ namespace mhwildsdb.Exceptions
                 Status = statusCode,
                 Title = title,
                 Type = exception.GetType().Name,
-                Detail = exception.Message,
+                Detail = GetSafeErrorMessage(exception, httpContext),
                 Instance = httpContext.Request.Path
             };
 
@@ -39,10 +39,22 @@ namespace mhwildsdb.Exceptions
 
         private static (int StatusCode, string Title) MapException(Exception exception) => exception switch
         {
+            AppException ex => ((int)ex.StatusCode, ex.Message),
             KeyNotFoundException => (StatusCodes.Status404NotFound, "Resource Not Found"),
             ArgumentException => (StatusCodes.Status400BadRequest, "Invalid Request"),
             UnauthorizedAccessException => (StatusCodes.Status403Forbidden, "Forbidden"),
             _ => (StatusCodes.Status500InternalServerError, "Server Error")
         };
+
+        private static string? GetSafeErrorMessage(Exception exception, HttpContext httpContext)
+        {
+            var env = httpContext.RequestServices.GetRequiredService<IHostEnvironment>();
+            if (env.IsDevelopment())
+            {
+                return exception.Message;
+            }
+
+            return exception is AppException ? exception.Message : null;
+        }
     }
 }

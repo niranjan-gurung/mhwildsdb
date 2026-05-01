@@ -1,4 +1,5 @@
 ﻿using mhwildsdb.DTOs;
+using mhwildsdb.Exceptions;
 using mhwildsdb.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace mhwildsdb.Controllers
             var skills = await _skillService.GetAllSkillsAsync();
 
             if (skills is null)
-                throw new Exception("test exception");
+                throw new NotFoundException("Skills", null);
 
             return Ok(skills);
         }
@@ -25,9 +26,9 @@ namespace mhwildsdb.Controllers
         public async Task<IActionResult> GetSkillByIdAsync(Guid id)
         {
             var skill = await _skillService.GetSkillByIdAsync(id);
-            
-            if (skill is null) 
-                return NotFound();
+
+            if (skill is null)
+                throw new NotFoundException("Skill", id);
 
             return Ok(skill);
         }
@@ -36,6 +37,10 @@ namespace mhwildsdb.Controllers
         public async Task<IActionResult> CreateSkillAsync(CreateSkillDto command)
         {
             var skill = await _skillService.CreateSkillAsync(command);
+            
+            if (skill is null)
+                throw new BadRequestException("Failed to create skill.");
+
             return CreatedAtAction(nameof(GetSkillByIdAsync), new { id = skill.Id }, skill);
         }
 
