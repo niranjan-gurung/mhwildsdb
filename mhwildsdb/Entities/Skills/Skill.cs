@@ -34,10 +34,4 @@ public class Skill : EntityBase
 
         UpdateLastModified();
     }
-
-    //private static void Validate(string name, string type, string description)
-    //{
-    //    // perform validation here...
-    //    // ...
-    //}
 }

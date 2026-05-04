@@ -1,5 +1,6 @@
 using FluentValidation;
 using mhwildsdb.Exceptions.Handlers;
+using mhwildsdb.Filters;
 using mhwildsdb.Persistance;
 using mhwildsdb.Services;
 using Microsoft.EntityFrameworkCore;
@@ -35,11 +36,12 @@ try
         };
     });
 
-    builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+    builder.Services.AddExceptionHandler<GlobalExceptionHandler>();     // fallback
 
     builder.Services.AddControllers();
     builder.Services.AddOpenApi();
 
+    builder.Services.AddScoped(typeof(ValidateFilter<>));
     builder.Services.AddTransient<ISkillService, SkillService>();
 
     // register database context
@@ -47,14 +49,14 @@ try
         options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
 
     var app = builder.Build();
-
+    
+    app.UseSerilogRequestLogging();
     app.UseExceptionHandler();
 
     if (app.Environment.IsDevelopment())
     {
         app.MapOpenApi();
         app.MapScalarApiReference();
-        app.UseSerilogRequestLogging();
     }
 
     /* CORS setup 
