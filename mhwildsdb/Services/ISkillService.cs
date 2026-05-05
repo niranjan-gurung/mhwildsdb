@@ -1,4 +1,4 @@
-﻿using mhwildsdb.DTOs;
+﻿using mhwildsdb.DTOs.Skills.Skill;
 
 namespace mhwildsdb.Services;
 

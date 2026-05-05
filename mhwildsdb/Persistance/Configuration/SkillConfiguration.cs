@@ -10,8 +10,6 @@ public class SkillConfiguration : IEntityTypeConfiguration<Skill>
     {
         builder.ToTable("Skills");
 
-        // skill -> skillRanks
-        // 1 - many
         builder.HasKey(s => s.Id);
         
         builder.Property(s => s.Name)
@@ -36,11 +34,5 @@ public class SkillConfiguration : IEntityTypeConfiguration<Skill>
 
         // index name field
         builder.HasIndex(m => m.Name);
-
-        //builder.Entity<Skill>()
-        //    .HasMany(s => s.Ranks)
-        //    .WithOne(sr => sr.Skill)
-        //    .HasForeignKey(sr => sr.SkillId)
-        //    .OnDelete(DeleteBehavior.Cascade);
     }
 }

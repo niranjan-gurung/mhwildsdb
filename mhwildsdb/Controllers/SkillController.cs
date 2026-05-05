@@ -1,4 +1,4 @@
-﻿using mhwildsdb.DTOs;
+﻿using mhwildsdb.DTOs.Skills.Skill;
 using mhwildsdb.Filters;
 using mhwildsdb.Services;
 using Microsoft.AspNetCore.Mvc;

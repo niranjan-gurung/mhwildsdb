@@ -68,6 +68,10 @@ try
     app.MapControllers();
     app.Run();
 }
+catch(HostAbortedException)
+{
+    // thrown by ef tools during migrations
+}
 catch (Exception ex)
 {
     Log.Fatal(ex, "Server terminated unexpectedly.");

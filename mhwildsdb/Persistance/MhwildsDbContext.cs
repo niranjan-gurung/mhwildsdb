@@ -6,6 +6,7 @@ namespace mhwildsdb.Persistance;
 public class MhwildsDbContext(DbContextOptions<MhwildsDbContext> options) : DbContext(options)
 {
     public DbSet<Skill> Skills { get; set; }
+    public DbSet<SkillRank> SkillRanks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
