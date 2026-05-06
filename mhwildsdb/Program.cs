@@ -57,6 +57,8 @@ try
     {
         app.MapOpenApi();
         app.MapScalarApiReference();
+        Log.Information("Using database: {Database}",
+            builder.Configuration.GetConnectionString("Database"));
     }
 
     /* CORS setup 
