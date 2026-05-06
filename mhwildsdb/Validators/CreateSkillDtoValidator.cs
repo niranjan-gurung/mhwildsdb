@@ -35,9 +35,9 @@ public sealed class CreateSkillDtoValidator : AbstractValidator<CreateSkillDto>
             .SetValidator(new CreateSkillRankDtoValidator());
     }
 
-    private static bool BeValidName(string? name)
+    private static bool BeValidName(string name)
     {
-        return !string.IsNullOrWhiteSpace(name) && name.All(char.IsLetter);
+        return name!.All(c => char.IsLetter(c) || c == ' ');
     }
 
     private static bool BeUnique(ICollection<CreateSkillRankDto> ranks)
