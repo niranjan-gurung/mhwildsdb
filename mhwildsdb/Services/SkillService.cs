@@ -11,18 +11,18 @@ public class SkillService(
     MhwildsDbContext _context,
     ILogger<SkillService> _logger) : ISkillService
 {
-    public async Task<SkillDto> CreateSkillAsync(CreateSkillDto command)
+    public async Task<SkillDto> CreateSkillAsync(CreateSkillDto request)
     {
-        var exists = await _context.Skills.AnyAsync(s => s.Name == command.Name);
+        var exists = await _context.Skills.AnyAsync(s => s.Name == request.Name);
         if (exists)
-            throw new ConflictException($"Skill '{command.Name}' already exists.");
+            throw new ConflictException($"Skill '{request.Name}' already exists.");
 
-        // convert command.Ranks from dto to entity
-        var ranks = command.Ranks
+        // convert request.Ranks from dto to entity
+        var ranks = request.Ranks
             .Select(r => SkillRank.Create(r.Level, r.Description))
             .ToList();
 
-        var skill = Skill.Create(command.Name, command.Type, command.Description, ranks);
+        var skill = Skill.Create(request.Name, request.Type, request.Description, ranks);
 
         await _context.Skills.AddAsync(skill);
         await _context.SaveChangesAsync();
@@ -30,6 +30,35 @@ public class SkillService(
         _logger.LogInformation("Created new skill with {ID}", skill.Id);
 
         return skill.ToDto();
+    }
+
+    public async Task<ICollection<SkillDto>> CreateSkillRangeAsync(ICollection<CreateSkillDto> requests)
+    {
+        // check for duplicates against existing db entries
+        var names = requests.Select(r => r.Name).ToList();
+        var existingNames = await _context.Skills
+            .Where(s => names.Contains(s.Name))
+            .Select(s => s.Name)
+            .ToListAsync();
+
+        if (existingNames.Count != 0)
+            throw new ConflictException($"Skills already exist: {string.Join(", ", existingNames)}");
+
+        var skills = requests
+            .Select(s => Skill.Create(
+                s.Name,
+                s.Type,
+                s.Description,
+                s.Ranks.Select(r => SkillRank.Create(r.Level, r.Description)).ToList()
+            ))
+            .ToList();
+
+        await _context.Skills.AddRangeAsync(skills);
+        await _context.SaveChangesAsync();
+
+        _logger.LogInformation("Created {count} new skills", skills.Count);
+
+        return skills.Select(s => s.ToDto()).ToList();
     }
 
     public async Task<IEnumerable<SkillDto>> GetAllSkillsAsync()
@@ -53,14 +82,14 @@ public class SkillService(
         return skill.ToDto();
     }
 
-    public async Task UpdateSkillAsync(Guid id, UpdateSkillDto command)
+    public async Task UpdateSkillAsync(Guid id, UpdateSkillDto request)
     {
         var skill = await _context.Skills.FindAsync(id);
 
         if (skill is null)
             throw new NotFoundException("Skill", id);
 
-        skill.Update(command.Name, command.Type, command.Description);
+        skill.Update(request.Name, request.Type, request.Description);
         await _context.SaveChangesAsync();
         _logger.LogInformation("Updated skill with {id}", id);
     }

@@ -15,10 +15,33 @@ public class SkillServiceTests
     private readonly SkillService _service;
 
     private readonly CreateSkillDto _validSkill = new("Attack Boost", "weapon", "Increase attack power.",
-        new List<CreateSkillRankDto>
-        {
-            new(1, "Attack +3")
-        });
+        [ new(1, "Attack +3")] );
+
+    private readonly ICollection<CreateSkillDto> _validSkills =
+        [
+            new("Attack Boost", "weapon", "Increase attack power.",
+                [
+                    new(1, "Attack +3"),
+                    new(2, "Attack +5"),
+                    new(3, "Attack +7"),
+                    new(4, "Attack +2% Bonus: +8"),
+                    new(5, "Attack +4% Bonus: +9")
+                ]),
+            new("Offensive Guard", "weapon", "Temporarily increases attack power after executing a perfectly-timed guard.",
+                [
+                    new(1, "Attack +5% while active."),
+                    new(2, "Attack +10% while active"),
+                    new(3, "Attack +15% while active")
+                ]),
+            new("Critical Eye", "weapon", "Increases affinity.",
+                [
+                    new(1, "Affinity +4%"),
+                    new(2, "Affinity +8%"),
+                    new(3, "Affinity +12%"),
+                    new(4, "Affinity +16%"),
+                    new(5, "Affinity +20%")
+                ])
+        ];
 
     public SkillServiceTests()
     {
@@ -41,16 +64,30 @@ public class SkillServiceTests
     }
 
     [Fact]
-    public async Task CreateSkillsAsync_WithDuplicateName_ShouldReturnConflictException()
+    public async Task CreateSkillRangeAsync_WithValidData_ShouldReturnSkillDtoList()
+    {
+        var result = await _service.CreateSkillRangeAsync(_validSkills);
+
+        result.Should().NotBeNull();
+        result.Select(s => s.Name).Should()
+            .BeEquivalentTo(_validSkills.Select(s => s.Name));
+    }
+
+    [Fact]
+    public async Task CreateSkillRangeAsync_WithDuplicateName_ShouldReturnConflictException()
     {
         // seed existing skill
-        _context.Skills.Add(Skill.Create("Attack Boost", "weapon", "Increase attack power.", 
-            new List<SkillRank>
-            {
-                SkillRank.Create(1, "Attack +3")
-            }));
+        await _service.CreateSkillAsync(_validSkill);
 
-        await _context.SaveChangesAsync(TestContext.Current.CancellationToken);
+        var result = async () => await _service.CreateSkillRangeAsync(_validSkills);
+        await result.Should().ThrowAsync<ConflictException>();
+    }
+
+    [Fact]
+    public async Task CreateSkillAsync_WithDuplicateName_ShouldReturnConflictException()
+    {
+        // seed existing skill
+        await _service.CreateSkillAsync(_validSkill);
 
         var result = async () => await _service.CreateSkillAsync(_validSkill);
         await result.Should().ThrowAsync<ConflictException>();

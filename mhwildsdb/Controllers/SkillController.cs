@@ -25,17 +25,25 @@ public class SkillController(ISkillService _skillService) : ControllerBase
 
     [HttpPost]
     [ServiceFilter(typeof(ValidateFilter<CreateSkillDto>))]
-    public async Task<IActionResult> CreateSkillAsync(CreateSkillDto command)
+    public async Task<IActionResult> CreateSkillAsync(CreateSkillDto request)
     {
-        var skill = await _skillService.CreateSkillAsync(command);
+        var skill = await _skillService.CreateSkillAsync(request);
         return CreatedAtAction(nameof(GetSkillByIdAsync), new { id = skill.Id }, skill);
     }
 
-    [HttpPut("{id:Guid}")]
-    [ServiceFilter(typeof(ValidateFilter<UpdateSkillDto>))]
-    public async Task<IActionResult> UpdateSkillAsync(Guid id, UpdateSkillDto command)
+    [HttpPost("range")]
+    [ServiceFilter(typeof(ValidateFilter<ICollection<CreateSkillDto>>))]
+    public async Task<IActionResult> CreateSkillRangeAsync(ICollection<CreateSkillDto> requests)
     {
-        await _skillService.UpdateSkillAsync(id, command);
+        var skills = await _skillService.CreateSkillRangeAsync(requests);
+        return CreatedAtAction(nameof(GetAllSkillsAsync), skills);
+    }
+
+    [HttpPut("{id:Guid}")]
+    //[ServiceFilter(typeof(ValidateFilter<UpdateSkillDto>))]
+    public async Task<IActionResult> UpdateSkillAsync(Guid id, UpdateSkillDto request)
+    {
+        await _skillService.UpdateSkillAsync(id, request);
         return NoContent();
     }
 
