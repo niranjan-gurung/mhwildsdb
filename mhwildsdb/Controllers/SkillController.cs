@@ -1,4 +1,5 @@
-﻿using mhwildsdb.DTOs.Skills.Skill;
+﻿using Asp.Versioning;
+using mhwildsdb.DTOs.Skills.Skill;
 using mhwildsdb.Filters;
 using mhwildsdb.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -6,18 +7,19 @@ using Microsoft.AspNetCore.Mvc;
 namespace mhwildsdb.Controllers;
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
 public class SkillController(ISkillService _skillService) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAllSkillsAsync()
+    public async Task<IActionResult> GetSkills()
     {
         var skills = await _skillService.GetAllSkillsAsync();
         return Ok(skills);
     }
 
     [HttpGet("{id:Guid}")]
-    public async Task<IActionResult> GetSkillByIdAsync(Guid id)
+    public async Task<IActionResult> GetSkillById(Guid id)
     {
         var skill = await _skillService.GetSkillByIdAsync(id);
         return Ok(skill);
@@ -25,30 +27,30 @@ public class SkillController(ISkillService _skillService) : ControllerBase
 
     [HttpPost]
     [ServiceFilter(typeof(ValidateFilter<CreateSkillDto>))]
-    public async Task<IActionResult> CreateSkillAsync(CreateSkillDto request)
+    public async Task<IActionResult> CreateSkill(CreateSkillDto request)
     {
         var skill = await _skillService.CreateSkillAsync(request);
-        return CreatedAtAction(nameof(GetSkillByIdAsync), new { id = skill.Id }, skill);
+        return CreatedAtAction(nameof(GetSkillById), new { id = skill.Id }, skill);
     }
 
     [HttpPost("range")]
     [ServiceFilter(typeof(ValidateFilter<ICollection<CreateSkillDto>>))]
-    public async Task<IActionResult> CreateSkillRangeAsync(ICollection<CreateSkillDto> requests)
+    public async Task<IActionResult> CreateSkillRange(ICollection<CreateSkillDto> requests)
     {
         var skills = await _skillService.CreateSkillRangeAsync(requests);
-        return CreatedAtAction(nameof(GetAllSkillsAsync), skills);
+        return CreatedAtAction(nameof(GetSkills), skills);
     }
 
     [HttpPut("{id:Guid}")]
     //[ServiceFilter(typeof(ValidateFilter<UpdateSkillDto>))]
-    public async Task<IActionResult> UpdateSkillAsync(Guid id, UpdateSkillDto request)
+    public async Task<IActionResult> UpdateSkill(Guid id, UpdateSkillDto request)
     {
         await _skillService.UpdateSkillAsync(id, request);
         return NoContent();
     }
 
     [HttpDelete("{id:Guid}")]
-    public async Task<IActionResult> DeleteSkillAsync(Guid id)
+    public async Task<IActionResult> DeleteSkill(Guid id)
     {
         await _skillService.DeleteSkillAsync(id);
         return NoContent();
