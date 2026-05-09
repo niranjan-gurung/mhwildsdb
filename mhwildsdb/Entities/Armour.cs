@@ -11,7 +11,7 @@ public class Armour : EntityBase
     public int Defense { get; private set; }
     public Resistances Resistances { get; private set; }
     public ICollection<int> Slots { get; private set; } = [];
-    public ICollection<SkillRank> Skills { get; private set; } = [];
+    public ICollection<SkillRank> SkillRanks { get; private set; } = [];
 
     private Armour()
     {
@@ -29,7 +29,7 @@ public class Armour : EntityBase
         int defense,
         Resistances resistances,
         ICollection<int> slots,
-        ICollection<SkillRank> skills)
+        ICollection<SkillRank> skillRanks)
     {
         Name = name;
         Piece = piece;
@@ -38,7 +38,7 @@ public class Armour : EntityBase
         Defense = defense;
         Resistances = resistances;
         Slots = slots;
-        Skills = skills;
+        SkillRanks = skillRanks;
     }
 
     public static Armour Create(
@@ -49,9 +49,9 @@ public class Armour : EntityBase
         int defense, 
         Resistances resistances, 
         ICollection<int> slots, 
-        ICollection<SkillRank> skills)
+        ICollection<SkillRank> skillRanks)
     {
-        return new Armour(name, piece, rank, rarity, defense, resistances, slots, skills);
+        return new Armour(name, piece, rank, rarity, defense, resistances, slots, skillRanks);
     }
 
     public void Update(

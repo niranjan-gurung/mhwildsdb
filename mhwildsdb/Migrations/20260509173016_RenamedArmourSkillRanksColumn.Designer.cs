@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using mhwildsdb.Persistance;
@@ -11,9 +12,11 @@ using mhwildsdb.Persistance;
 namespace mhwildsdb.Migrations
 {
     [DbContext(typeof(MhwildsDbContext))]
-    partial class MhwildsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260509173016_RenamedArmourSkillRanksColumn")]
+    partial class RenamedArmourSkillRanksColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

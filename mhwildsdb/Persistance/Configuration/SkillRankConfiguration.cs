@@ -35,7 +35,7 @@ public class SkillRankConfiguration : IEntityTypeConfiguration<SkillRank>
         // skillRanks -> armour
         // many - many
         builder.HasMany(sr => sr.Armours)
-            .WithMany(a => a.Skills)
+            .WithMany(a => a.SkillRanks)
             .UsingEntity(j => j.ToTable("ArmourSkillRanks"));
 
         builder.HasIndex(sr => sr.SkillId);
