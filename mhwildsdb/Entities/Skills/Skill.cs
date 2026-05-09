@@ -7,7 +7,7 @@ public class Skill : EntityBase
     public string Description { get; private set; }
     public ICollection<SkillRank> Ranks { get; private set; } = [];
 
-    private Skill() 
+    private Skill()
     {
         Name = string.Empty;
         Type = string.Empty;

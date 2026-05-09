@@ -11,11 +11,12 @@ public class SkillRank : EntityBase
     // navigation property
     public Skill Skill { get; private set; } = null!;
 
+    public List<Armour> Armours { get; private set; } = [];
+
     // TODO:
-    // public List<Armour> Armours { get; private set; } = [];
     // public List<Charm> Charms { get; private set; } = [];
     // public List<Decoration> Decorations { get; private set; } = [];
-    
+
     private SkillRank()
     {
         Description = string.Empty;
