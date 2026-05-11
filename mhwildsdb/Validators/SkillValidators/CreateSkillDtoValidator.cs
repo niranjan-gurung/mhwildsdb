@@ -2,7 +2,7 @@
 using mhwildsdb.DTOs.Skills.Skill;
 using mhwildsdb.DTOs.Skills.SkillRank;
 
-namespace mhwildsdb.Validators;
+namespace mhwildsdb.Validators.SkillValidators;
 
 public sealed class CreateSkillDtoValidator : AbstractValidator<CreateSkillDto>
 {

@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using mhwildsdb.DTOs.Skills.Skill;
-using mhwildsdb.Entities.Skills;
 using mhwildsdb.Exceptions;
 using mhwildsdb.Persistance;
 using mhwildsdb.Services;

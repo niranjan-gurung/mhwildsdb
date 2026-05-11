@@ -38,7 +38,7 @@ public class SkillController(ISkillService _skillService) : ControllerBase
     public async Task<IActionResult> CreateSkillRange(ICollection<CreateSkillDto> requests)
     {
         var skills = await _skillService.CreateSkillRangeAsync(requests);
-        return CreatedAtAction(nameof(GetSkills), skills);
+        return CreatedAtAction(nameof(GetSkills), null, skills);
     }
 
     [HttpPut("{id:Guid}")]

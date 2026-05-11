@@ -27,7 +27,7 @@ public class SkillService(
         await _context.Skills.AddAsync(skill);
         await _context.SaveChangesAsync();
 
-        _logger.LogInformation("Created new skill with {ID}", skill.Id);
+        _logger.LogInformation("Created new skill with {SkillId}", skill.Id);
 
         return skill.ToDto();
     }
@@ -56,7 +56,7 @@ public class SkillService(
         await _context.Skills.AddRangeAsync(skills);
         await _context.SaveChangesAsync();
 
-        _logger.LogInformation("Created {count} new skills", skills.Count);
+        _logger.LogInformation("Created {Count} new skills", skills.Count);
 
         return skills.Select(s => s.ToDto()).ToList();
     }
@@ -91,7 +91,7 @@ public class SkillService(
 
         skill.Update(request.Name, request.Type, request.Description);
         await _context.SaveChangesAsync();
-        _logger.LogInformation("Updated skill with {id}", id);
+        _logger.LogInformation("Updated skill with {SkillId}", id);
     }
 
     public async Task DeleteSkillAsync(Guid id)
@@ -103,6 +103,6 @@ public class SkillService(
 
         _context.Skills.Remove(skill);
         await _context.SaveChangesAsync();
-        _logger.LogInformation("Deleted skill with {id}", id);
+        _logger.LogInformation("Deleted skill with {SkillId}", id);
     }
 }

@@ -5,4 +5,5 @@ public sealed record UpdateArmourDto(
     string Piece,
     string Rank,
     int Rarity,
-    int Defense);
+    int Defense,
+    ResistancesDto Resistances);

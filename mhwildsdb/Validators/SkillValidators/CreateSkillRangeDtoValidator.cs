@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using mhwildsdb.DTOs.Skills.Skill;
 
-namespace mhwildsdb.Validators
+namespace mhwildsdb.Validators.SkillValidators
 {
     public class CreateSkillRangeDtoValidator : AbstractValidator<ICollection<CreateSkillDto>>
     {

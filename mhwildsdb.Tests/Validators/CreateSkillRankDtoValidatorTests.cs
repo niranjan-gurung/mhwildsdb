@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
-using mhwildsdb.DTOs.Skills.Skill;
-using mhwildsdb.Validators;
+using mhwildsdb.DTOs.Skills.SkillRank;
+using mhwildsdb.Validators.SkillValidators;
 
 namespace mhwildsdb.Tests.Validators;
 
