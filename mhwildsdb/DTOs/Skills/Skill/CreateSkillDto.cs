@@ -1,4 +1,6 @@
-﻿namespace mhwildsdb.DTOs.Skills.Skill;
+﻿using mhwildsdb.DTOs.Skills.SkillRank;
+
+namespace mhwildsdb.DTOs.Skills.Skill;
 
 public sealed record CreateSkillDto(
     string Name, 

@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using FluentValidation;
 using mhwildsdb.Exceptions.Handlers;
 using mhwildsdb.Filters;
@@ -25,6 +26,19 @@ try
         .ReadFrom.Services(services));
 
     builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+    builder.Services.AddExceptionHandler<GlobalExceptionHandler>();     // fallback
+    builder.Services.AddApiVersioning(options =>
+    {
+        options.DefaultApiVersion = new ApiVersion(1, 0);
+        options.ReportApiVersions = true;
+        options.ApiVersionReader = new UrlSegmentApiVersionReader();
+    })
+    .AddMvc()
+    .AddApiExplorer(options =>
+    {
+        options.GroupNameFormat = "'v'VVV";
+        options.SubstituteApiVersionInUrl = true;
+    });
 
     builder.Services.AddProblemDetails(options =>
     {
@@ -36,13 +50,13 @@ try
         };
     });
 
-    builder.Services.AddExceptionHandler<GlobalExceptionHandler>();     // fallback
 
     builder.Services.AddControllers();
     builder.Services.AddOpenApi();
 
     builder.Services.AddScoped(typeof(ValidateFilter<>));
     builder.Services.AddTransient<ISkillService, SkillService>();
+    builder.Services.AddTransient<IArmourService, ArmourService>();
 
     // register database context
     builder.Services.AddDbContext<MhwildsDbContext>(options => 
@@ -57,6 +71,7 @@ try
     {
         app.MapOpenApi();
         app.MapScalarApiReference();
+
         Log.Information("Using database: {Database}",
             builder.Configuration.GetConnectionString("Database"));
     }

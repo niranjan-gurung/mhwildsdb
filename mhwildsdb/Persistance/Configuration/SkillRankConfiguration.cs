@@ -17,12 +17,26 @@ public class SkillRankConfiguration : IEntityTypeConfiguration<SkillRank>
             .IsRequired()
             .HasMaxLength(200);
 
+        builder.Property(m => m.Created)
+            .IsRequired()
+            .ValueGeneratedOnAdd();
+
+        builder.Property(m => m.LastModified)
+            .IsRequired()
+            .ValueGeneratedOnUpdate();
+
         // skill -> skillRanks
         // 1 - many
         builder.HasOne(sr => sr.Skill)
             .WithMany(s => s.Ranks)
             .HasForeignKey(sr => sr.SkillId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        // skillRanks -> armour
+        // many - many
+        builder.HasMany(sr => sr.Armours)
+            .WithMany(a => a.SkillRanks)
+            .UsingEntity(j => j.ToTable("ArmourSkillRanks"));
 
         builder.HasIndex(sr => sr.SkillId);
     }
