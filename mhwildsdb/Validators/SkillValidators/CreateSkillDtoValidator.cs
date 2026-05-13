@@ -22,8 +22,8 @@ public sealed class CreateSkillDtoValidator : AbstractValidator<CreateSkillDto>
 
         RuleFor(x => x.Description)
             .Cascade(CascadeMode.Stop)
-            .NotEmpty().WithMessage("{PropertyName} is required.")
-            .MaximumLength(200).WithMessage("{PropertyName} cannot exceed 200 characters.");
+            .MaximumLength(200).WithMessage("{PropertyName} cannot exceed 200 characters.")
+            .When(x => !string.IsNullOrEmpty(x.Description));
 
         RuleFor(x => x.Ranks)
             .Cascade(CascadeMode.Stop)
@@ -38,7 +38,7 @@ public sealed class CreateSkillDtoValidator : AbstractValidator<CreateSkillDto>
 
     private static bool BeValidName(string name)
     {
-        return name!.All(c => char.IsLetter(c) || c == ' ');
+        return name!.All(c => char.IsLetter(c) || c == ' ' || c == '\'');
     }
 
     private static bool BeUnique(ICollection<CreateSkillRankDto> ranks)

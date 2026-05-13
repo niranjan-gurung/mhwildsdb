@@ -44,8 +44,8 @@ public class ArmourServiceTests
 
     private void SeedInMemoryDb()
     {
-        var skill = Skill.Create("Attack Boost", "Weapon", "Increases attack power.",
-            [SkillRank.Create(1, "Attack +3")]);
+        var skill = Skill.Create("Attack Boost", "Weapon", 
+            [SkillRank.Create(1, "Attack +3")], "Increases attack power.");
 
         _context.Skills.Add(skill);
         _context.SaveChanges();

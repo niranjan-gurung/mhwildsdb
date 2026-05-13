@@ -19,10 +19,10 @@ public class SkillService(
 
         // convert request.Ranks from dto to entity
         var ranks = request.Ranks
-            .Select(r => SkillRank.Create(r.Level, r.Description))
+            .Select(r => SkillRank.Create(r.Level, r.Description, r.Name, r.SetPieceRequired))
             .ToList();
 
-        var skill = Skill.Create(request.Name, request.Type, request.Description, ranks);
+        var skill = Skill.Create(request.Name, request.Type, ranks, request.Description);
 
         await _context.Skills.AddAsync(skill);
         await _context.SaveChangesAsync();
@@ -48,8 +48,8 @@ public class SkillService(
             .Select(s => Skill.Create(
                 s.Name,
                 s.Type,
-                s.Description,
-                s.Ranks.Select(r => SkillRank.Create(r.Level, r.Description)).ToList()
+                s.Ranks.Select(r => SkillRank.Create(r.Level, r.Description, r.Name, r.SetPieceRequired)).ToList(),
+                s.Description
             ))
             .ToList();
 

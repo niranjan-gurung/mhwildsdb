@@ -17,6 +17,11 @@ public class SkillRankConfiguration : IEntityTypeConfiguration<SkillRank>
             .IsRequired()
             .HasMaxLength(200);
 
+        builder.Property(sr => sr.Name)
+            .HasMaxLength(20);
+
+        builder.Property(sr => sr.SetPieceRequired);
+
         builder.Property(m => m.Created)
             .IsRequired()
             .ValueGeneratedOnAdd();

@@ -21,7 +21,6 @@ public class SkillConfiguration : IEntityTypeConfiguration<Skill>
             .HasMaxLength(20);
         
         builder.Property(s => s.Description)
-            .IsRequired()
             .HasMaxLength(200);
 
         builder.Property(m => m.Created)

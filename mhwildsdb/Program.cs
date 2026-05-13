@@ -50,7 +50,6 @@ try
         };
     });
 
-
     builder.Services.AddControllers();
     builder.Services.AddOpenApi();
 

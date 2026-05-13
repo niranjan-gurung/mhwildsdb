@@ -4,7 +4,7 @@ public class Skill : EntityBase
 {
     public string Name { get; private set; }
     public string Type { get; private set; }
-    public string Description { get; private set; }
+    public string? Description { get; private set; }
     public ICollection<SkillRank> Ranks { get; private set; } = [];
 
     private Skill()
@@ -14,20 +14,20 @@ public class Skill : EntityBase
         Description = string.Empty;
     }
 
-    private Skill(string name, string type, string description, ICollection<SkillRank> ranks)
+    private Skill(string name, string type, ICollection<SkillRank> ranks, string? description)
     {
         Name = name;
         Type = type;
-        Description = description;
         Ranks = ranks;
+        Description = description;
     }
 
-    public static Skill Create(string name, string type, string description, ICollection<SkillRank> ranks)
+    public static Skill Create(string name, string type, ICollection<SkillRank> ranks, string? description = null)
     {
-        return new Skill(name, type, description, ranks);
+        return new Skill(name, type, ranks, description);
     }
 
-    public void Update(string name, string type, string description)
+    public void Update(string name, string type, string? description = null)
     {
         Name = name;
         Type = type;

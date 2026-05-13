@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using mhwildsdb.Persistance;
@@ -11,9 +12,11 @@ using mhwildsdb.Persistance;
 namespace mhwildsdb.Migrations
 {
     [DbContext(typeof(MhwildsDbContext))]
-    partial class MhwildsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260513063019_AddedSkillRankNamesAndSetPieceRequired")]
+    partial class AddedSkillRankNamesAndSetPieceRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,6 +99,7 @@ namespace mhwildsdb.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
@@ -143,8 +147,7 @@ namespace mhwildsdb.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text");
 
                     b.Property<int?>("SetPieceRequired")
                         .HasColumnType("integer");

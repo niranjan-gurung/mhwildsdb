@@ -16,5 +16,15 @@ public sealed class CreateSkillRankDtoValidator : AbstractValidator<CreateSkillR
             .Cascade(CascadeMode.Stop)
             .NotEmpty().WithMessage("{PropertyName} is required.")
             .MaximumLength(200).WithMessage("{PropertyName} cannot exceed 200 characters.");
+
+        RuleFor(x => x.Name)
+            .MaximumLength(20)
+            .WithMessage("{PropertyName} cannot exceed 20 characters.")
+            .When(x => !string.IsNullOrEmpty(x.Name));
+
+        RuleFor(x => x.SetPieceRequired)
+            .InclusiveBetween(1, 5)
+            .WithMessage("{PropertyName} must be between 1 and 5 if provided.")
+            .When(x => x.SetPieceRequired.HasValue);
     }
 }

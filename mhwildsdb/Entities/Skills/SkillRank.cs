@@ -4,6 +4,8 @@ public class SkillRank : EntityBase
 {
     public int Level { get; private set; }
     public string Description { get; private set; }
+    public string? Name { get; private set; }
+    public int? SetPieceRequired { get; private set; }
 
     // FK
     public Guid SkillId { get; private set; }
@@ -23,21 +25,24 @@ public class SkillRank : EntityBase
         Skill = null!;
     }
 
-    private SkillRank(int level, string description)
+    private SkillRank(int level, string description, string? name, int? setPieceRequired)
     {
         Level = level;
         Description = description;
+        Name = name;
+        SetPieceRequired = setPieceRequired;
     }
 
-    public static SkillRank Create(int level, string description)
+    public static SkillRank Create(int level, string description, string? name = null, int? setPieceRequired = null)
     {
-        return new SkillRank(level, description);
+        return new SkillRank(level, description, name, setPieceRequired);
     }
 
-    public void Update(int level, string description)
+    public void Update(int level, string description, string? name = null)
     {
         Level = level;
         Description = description;
+        Name = name;
         UpdateLastModified();
     }
 }

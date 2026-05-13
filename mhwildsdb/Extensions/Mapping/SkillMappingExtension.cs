@@ -16,13 +16,15 @@ public static class SkillMappingExtension
         );
 
     public static SkillRankDto ToDto(this SkillRank rank) =>
-        new(rank.Id, rank.Level, rank.Description);
+        new(rank.Id, rank.Level, rank.Description, rank.Name, rank.SetPieceRequired);
 
     public static SkillRankDetailDto ToDetailDto(this SkillRank rank) =>
         new(
             rank.Id,
             rank.Level,
             rank.Description,
+            rank.Name,
+            rank.SetPieceRequired,
             rank.Skill.Id,
             rank.Skill.Name
         );
