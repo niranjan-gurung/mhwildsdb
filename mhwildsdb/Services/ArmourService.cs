@@ -1,5 +1,5 @@
 ﻿using mhwildsdb.DTOs.Armours;
-using mhwildsdb.Entities;
+using mhwildsdb.Entities.Armours;
 using mhwildsdb.Entities.Skills;
 using mhwildsdb.Exceptions;
 using mhwildsdb.Extensions.Mapping;
@@ -99,6 +99,7 @@ public class ArmourService(
             .AsNoTracking()
             .Include(a => a.SkillRanks)
                 .ThenInclude(asr => asr.Skill)
+            .Include(a => a.ArmourSet)
             .Select(a => a.ToDto())
             .ToListAsync();
     }
@@ -109,6 +110,7 @@ public class ArmourService(
             .AsNoTracking()
             .Include(a => a.SkillRanks)
                 .ThenInclude(asr => asr.Skill)
+            .Include(a => a.ArmourSet)
             .FirstOrDefaultAsync(a => a.Id == id);
 
         if (armour is null)

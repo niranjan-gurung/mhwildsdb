@@ -56,6 +56,7 @@ try
     builder.Services.AddScoped(typeof(ValidateFilter<>));
     builder.Services.AddTransient<ISkillService, SkillService>();
     builder.Services.AddTransient<IArmourService, ArmourService>();
+    builder.Services.AddTransient<IArmourSetService, ArmourSetService>();
 
     // register database context
     builder.Services.AddDbContext<MhwildsDbContext>(options => 

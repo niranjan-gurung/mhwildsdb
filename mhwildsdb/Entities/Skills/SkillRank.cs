@@ -1,4 +1,6 @@
-﻿namespace mhwildsdb.Entities.Skills;
+﻿using mhwildsdb.Entities.Armours;
+
+namespace mhwildsdb.Entities.Skills;
 
 public class SkillRank : EntityBase
 {
@@ -7,11 +9,8 @@ public class SkillRank : EntityBase
     public string? Name { get; private set; }
     public int? SetPieceRequired { get; private set; }
 
-    // FK
-    public Guid SkillId { get; private set; }
-
-    // navigation property
-    public Skill Skill { get; private set; } = null!;
+    public Guid SkillId { get; private set; }   // FK
+    public Skill Skill { get; private set; } = null!;   // navigation property
 
     public List<Armour> Armours { get; private set; } = [];
 
@@ -22,7 +21,6 @@ public class SkillRank : EntityBase
     private SkillRank()
     {
         Description = string.Empty;
-        Skill = null!;
     }
 
     private SkillRank(int level, string description, string? name, int? setPieceRequired)

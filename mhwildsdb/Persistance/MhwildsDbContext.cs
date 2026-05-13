@@ -1,4 +1,4 @@
-﻿using mhwildsdb.Entities;
+﻿using mhwildsdb.Entities.Armours;
 using mhwildsdb.Entities.Skills;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +9,7 @@ public class MhwildsDbContext(DbContextOptions<MhwildsDbContext> options) : DbCo
     public DbSet<Skill> Skills { get; set; }
     public DbSet<SkillRank> SkillRanks { get; set; }
     public DbSet<Armour> Armours { get; set; }
+    public DbSet<ArmourSet> ArmourSets { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,4 +1,4 @@
-﻿using mhwildsdb.Entities;
+﻿using mhwildsdb.Entities.Armours;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

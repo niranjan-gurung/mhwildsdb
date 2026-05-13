@@ -1,4 +1,5 @@
-﻿using mhwildsdb.DTOs.Skills.SkillRank;
+﻿using mhwildsdb.DTOs.Armours.ArmourSet;
+using mhwildsdb.DTOs.Skills.SkillRank;
 
 namespace mhwildsdb.DTOs.Armours;
 
@@ -11,4 +12,5 @@ public sealed record ArmourDto(
     int Defense,
     ResistancesDto Resistances,
     ICollection<int> Slots,
-    ICollection<SkillRankDetailDto> Skills);
+    ICollection<SkillRankDetailDto> Skills,
+    ArmourSetSummaryDto? ArmourSet);

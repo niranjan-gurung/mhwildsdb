@@ -1,5 +1,5 @@
 ﻿using mhwildsdb.DTOs.Armours;
-using mhwildsdb.Entities;
+using mhwildsdb.Entities.Armours;
 
 namespace mhwildsdb.Extensions.Mapping;
 
@@ -15,6 +15,7 @@ public static class ArmourMappingExtension
             armour.Defense,
             armour.Resistances.ToDto(),
             armour.Slots,
-            armour.SkillRanks.Select(sr => sr.ToDetailDto()).ToList()
+            armour.SkillRanks.Select(sr => sr.ToDetailDto()).ToList(),
+            armour.ArmourSet?.ToSummaryDto()
         );
 }

@@ -1,6 +1,6 @@
 ﻿using mhwildsdb.Entities.Skills;
 
-namespace mhwildsdb.Entities;
+namespace mhwildsdb.Entities.Armours;
 
 public class Armour : EntityBase
 {
@@ -12,6 +12,9 @@ public class Armour : EntityBase
     public Resistances Resistances { get; private set; }
     public ICollection<int> Slots { get; private set; } = [];
     public ICollection<SkillRank> SkillRanks { get; private set; } = [];
+
+    public Guid? ArmourSetId { get; private set; }  // FK
+    public ArmourSet? ArmourSet { get; private set; } = null!;  // navigation property
 
     private Armour()
     {

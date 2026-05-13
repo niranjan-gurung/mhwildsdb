@@ -24,12 +24,12 @@ public class SkillConfiguration : IEntityTypeConfiguration<Skill>
             .HasMaxLength(200);
 
         builder.Property(m => m.Created)
-               .IsRequired()
-               .ValueGeneratedOnAdd();
+            .IsRequired()
+            .ValueGeneratedOnAdd();
 
         builder.Property(m => m.LastModified)
-               .IsRequired()
-               .ValueGeneratedOnUpdate();
+            .IsRequired()
+            .ValueGeneratedOnUpdate();
 
         // index name field
         builder.HasIndex(m => m.Name);
