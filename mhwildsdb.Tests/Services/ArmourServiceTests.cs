@@ -17,13 +17,13 @@ public class ArmourServiceTests
     private static readonly ResistancesDto _validResistances = new(-3, 1, -1, 1, 2);
     private Guid _skillRankId;
     
-    private CreateArmourDto _validArmour => 
+    private CreateArmourDto ValidArmour => 
         new("Conga Helm α", "head", "high", 5, 36, _validResistances, [1], [_skillRankId]);
     
-    private CreateArmourDto _invalidArmour =>
+    private CreateArmourDto InvalidArmour =>
         new("Conga Helm α", "head", "high", 5, 36, _validResistances, [1], [Guid.NewGuid()]);
 
-    private ICollection<CreateArmourDto> _validArmours =>
+    private ICollection<CreateArmourDto> ValidArmours =>
         [
             new("Conga Helm α", "head", "high", 5, 36, _validResistances, [1], [_skillRankId]),
             new("Conga Mail α", "chest", "high", 5, 36, _validResistances, [], [_skillRankId]),
@@ -56,29 +56,29 @@ public class ArmourServiceTests
     [Fact]
     public async Task CreateArmourAsync_WithValidData_ShouldReturnArmourDto()
     {
-        var result = await _service.CreateArmourAsync(_validArmour);
+        var result = await _service.CreateArmourAsync(ValidArmour);
 
         result.Should().NotBeNull();
-        result.Name.Should().Be(_validArmour.Name);
-        result.Skills.Should().HaveCount(_validArmour.SkillRankIds.Count);
+        result.Name.Should().Be(ValidArmour.Name);
+        result.Skills.Should().HaveCount(ValidArmour.SkillRankIds.Count);
     }
 
     [Fact]
     public async Task CreateArmourRangeAsync_WithValidData_ShouldReturnArmourDtoList()
     {
-        var result = await _service.CreateArmourRangeAsync(_validArmours);
+        var result = await _service.CreateArmourRangeAsync(ValidArmours);
 
         result.Should().NotBeNull();
         result.Select(a => a.Name).Should()
-            .BeEquivalentTo(_validArmours.Select(a => a.Name));
+            .BeEquivalentTo(ValidArmours.Select(a => a.Name));
     }
 
     [Fact]
     public async Task CreateArmourAsync_WithDuplicateName_ShouldThrowConflictException()
     {
-        await _service.CreateArmourAsync(_validArmour);
+        await _service.CreateArmourAsync(ValidArmour);
 
-        var act = async () => await _service.CreateArmourAsync(_validArmour);
+        var act = async () => await _service.CreateArmourAsync(ValidArmour);
         await act.Should().ThrowAsync<ConflictException>();
     }
 
@@ -92,7 +92,7 @@ public class ArmourServiceTests
     [Fact]
     public async Task CreateArmourAsync_WithNonExistentSkillRankId_ShouldThrowNotFoundException()
     {
-        var act = async () => await _service.CreateArmourAsync(_invalidArmour);
+        var act = async () => await _service.CreateArmourAsync(InvalidArmour);
         await act.Should().ThrowAsync<NotFoundException>();
     }
 }

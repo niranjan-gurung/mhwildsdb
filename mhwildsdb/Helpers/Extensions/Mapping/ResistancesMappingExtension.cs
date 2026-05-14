@@ -1,7 +1,7 @@
 ﻿using mhwildsdb.DTOs;
 using mhwildsdb.Entities;
 
-namespace mhwildsdb.Extensions.Mapping;
+namespace mhwildsdb.Helpers.Extensions.Mapping;
 
 public static class ResistancesMappingExtension
 {

@@ -2,7 +2,7 @@
 using mhwildsdb.DTOs.Skills.SkillRank;
 using mhwildsdb.Entities.Skills;
 
-namespace mhwildsdb.Extensions.Mapping;
+namespace mhwildsdb.Helpers.Extensions.Mapping;
 
 public static class SkillMappingExtension
 {

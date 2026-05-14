@@ -2,7 +2,7 @@
 using mhwildsdb.Entities.Armours;
 using mhwildsdb.Entities.Skills;
 using mhwildsdb.Exceptions;
-using mhwildsdb.Extensions.Mapping;
+using mhwildsdb.Helpers.Extensions.Mapping;
 using mhwildsdb.Persistance;
 using Microsoft.EntityFrameworkCore;
 

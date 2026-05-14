@@ -1,7 +1,7 @@
 ﻿using mhwildsdb.DTOs.Armours;
 using mhwildsdb.Entities.Armours;
 
-namespace mhwildsdb.Extensions.Mapping;
+namespace mhwildsdb.Helpers.Extensions.Mapping;
 
 public static class ArmourMappingExtension
 {
