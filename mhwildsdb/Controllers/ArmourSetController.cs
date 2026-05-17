@@ -33,13 +33,13 @@ public class ArmourSetController(IArmourSetService _armourSetService) : Controll
         return CreatedAtAction(nameof(GetArmourSetById), new { id = armourSet.Id }, armourSet);
     }
 
-    //[HttpPost("range")]
-    //[ServiceFilter(typeof(ValidateFilter<ICollection<CreateArmourSetDto>>))]
-    //public async Task<IActionResult> CreateArmourRange(ICollection<CreateArmourSetDto> requests)
-    //{
-    //    var armourSets = await _armourSetService.CreateArmourRangeAsync(requests);
-    //    return CreatedAtAction(nameof(GetArmourSets), null, armourSets);
-    //}
+    [HttpPost("range")]
+    [ServiceFilter(typeof(ValidateFilter<ICollection<CreateArmourSetDto>>))]
+    public async Task<IActionResult> CreateArmourRange(ICollection<CreateArmourSetDto> requests)
+    {
+        var armourSets = await _armourSetService.CreateArmourRangeAsync(requests);
+        return CreatedAtAction(nameof(GetArmourSets), null, armourSets);
+    }
 
     [HttpPut("{id:Guid}")]
     public async Task<IActionResult> UpdateArmourSet(Guid id, UpdateArmourSetDto request)

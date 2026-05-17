@@ -59,8 +59,13 @@ try
     builder.Services.AddTransient<IArmourSetService, ArmourSetService>();
 
     // register database context
-    builder.Services.AddDbContext<MhwildsDbContext>(options => 
-        options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
+    builder.Services.AddDbContext<MhwildsDbContext>(options =>
+        options.UseNpgsql(
+            builder.Configuration.GetConnectionString("Database"),
+
+            // split queries as default for multiple includes
+            npgsqlOptions => npgsqlOptions.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)
+        ));
 
     var app = builder.Build();
     
