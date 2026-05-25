@@ -1,6 +1,6 @@
 ﻿using mhwildsdb.DTOs.Charms;
 
-namespace mhwildsdb.Services;
+namespace mhwildsdb.Services.Interfaces;
 
 public interface ICharmService
 {

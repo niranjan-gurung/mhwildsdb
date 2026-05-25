@@ -1,6 +1,6 @@
 ﻿using mhwildsdb.DTOs.Armours;
 
-namespace mhwildsdb.Services;
+namespace mhwildsdb.Services.Interfaces;
 
 public interface IArmourService
 {

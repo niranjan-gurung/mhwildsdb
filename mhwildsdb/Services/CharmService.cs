@@ -6,6 +6,7 @@ using mhwildsdb.Persistance;
 using Microsoft.EntityFrameworkCore;
 using mhwildsdb.Helpers.Extensions.Mapping;
 using mhwildsdb.Entities.Charms;
+using mhwildsdb.Services.Interfaces;
 
 namespace mhwildsdb.Services;
 

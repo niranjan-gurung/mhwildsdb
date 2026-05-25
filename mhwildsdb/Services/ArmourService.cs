@@ -4,6 +4,7 @@ using mhwildsdb.Entities.Skills;
 using mhwildsdb.Exceptions;
 using mhwildsdb.Helpers.Extensions.Mapping;
 using mhwildsdb.Persistance;
+using mhwildsdb.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace mhwildsdb.Services;

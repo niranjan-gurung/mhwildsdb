@@ -1,7 +1,7 @@
 ﻿using mhwildsdb.DTOs.Armours;
 using mhwildsdb.DTOs.Armours.ArmourSet;
 
-namespace mhwildsdb.Services;
+namespace mhwildsdb.Services.Interfaces;
 
 public interface IArmourSetService
 {

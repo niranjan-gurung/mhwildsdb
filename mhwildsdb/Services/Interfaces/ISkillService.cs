@@ -1,6 +1,6 @@
 ﻿using mhwildsdb.DTOs.Skills;
 
-namespace mhwildsdb.Services;
+namespace mhwildsdb.Services.Interfaces;
 
 public interface ISkillService
 {

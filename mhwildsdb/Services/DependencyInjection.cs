@@ -1,4 +1,6 @@
-﻿namespace mhwildsdb.Services;
+﻿using mhwildsdb.Services.Interfaces;
+
+namespace mhwildsdb.Services;
 
 public static class DependencyInjection
 {
@@ -8,9 +10,7 @@ public static class DependencyInjection
         services.AddScoped<IArmourService, ArmourService>();
         services.AddScoped<IArmourSetService, ArmourSetService>();
         services.AddScoped<ICharmService, CharmService>();
-        
-        // TODO
-        //services.AddScoped<IDecorationService, DecorationService>();
+        services.AddScoped<IDecorationService, DecorationService>();
 
         return services;
     }

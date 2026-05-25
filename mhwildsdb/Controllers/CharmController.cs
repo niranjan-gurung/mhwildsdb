@@ -1,7 +1,7 @@
 ﻿using Asp.Versioning;
 using mhwildsdb.DTOs.Charms;
 using mhwildsdb.Filters;
-using mhwildsdb.Services;
+using mhwildsdb.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mhwildsdb.Controllers;
