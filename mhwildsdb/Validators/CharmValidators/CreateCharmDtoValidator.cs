@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
-using mhwildsdb.DTOs.Talismans;
-using mhwildsdb.DTOs.Talismans.CharmRank;
+using mhwildsdb.DTOs.Charms;
 using mhwildsdb.Helpers;
 
 namespace mhwildsdb.Validators.CharmValidators;

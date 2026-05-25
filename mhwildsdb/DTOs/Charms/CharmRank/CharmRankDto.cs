@@ -1,6 +1,6 @@
 ﻿using mhwildsdb.DTOs.Skills.SkillRank;
 
-namespace mhwildsdb.DTOs.Talismans.CharmRank;
+namespace mhwildsdb.DTOs.Charms.CharmRank;
 
 public sealed record CharmRankDto(
     Guid Id,

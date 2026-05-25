@@ -1,6 +1,6 @@
 ﻿using mhwildsdb.Entities.Armours;
 using mhwildsdb.Entities.Skills;
-using mhwildsdb.Entities.Talismans;
+using mhwildsdb.Entities.Charms;
 using Microsoft.EntityFrameworkCore;
 
 namespace mhwildsdb.Persistance;

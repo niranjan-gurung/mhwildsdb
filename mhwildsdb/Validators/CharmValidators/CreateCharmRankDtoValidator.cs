@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using mhwildsdb.DTOs.Talismans.CharmRank;
+using mhwildsdb.DTOs.Charms.CharmRank;
 using mhwildsdb.Helpers;
 
 namespace mhwildsdb.Validators.CharmValidators;
@@ -29,7 +29,7 @@ public sealed class CreateCharmRankDtoValidator : AbstractValidator<CreateCharmR
             .InclusiveBetween(1, 12).WithMessage("{PropertyName} must be between 1 and 12.");
 
         RuleFor(x => x.Skills)
-            .NotNull().WithMessage("{PropertyName} is required.")
+            .NotEmpty().WithMessage("{PropertyName} must contain at least one skill rank.")
             .Must(ids => ValidationHelpers.BeUnique(ids, id => id))
                 .WithMessage("{PropertyName} must not contain duplicate skill rank IDs.");
 

@@ -7,9 +7,9 @@ public static class DependencyInjection
         services.AddScoped<ISkillService, SkillService>();
         services.AddScoped<IArmourService, ArmourService>();
         services.AddScoped<IArmourSetService, ArmourSetService>();
+        services.AddScoped<ICharmService, CharmService>();
         
         // TODO
-        //services.AddScoped<ICharmService, CharmService>();
         //services.AddScoped<IDecorationService, DecorationService>();
 
         return services;

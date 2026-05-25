@@ -1,6 +1,6 @@
-﻿using mhwildsdb.DTOs.Talismans.CharmRank;
+﻿using mhwildsdb.DTOs.Charms.CharmRank;
 
-namespace mhwildsdb.DTOs.Talismans;
+namespace mhwildsdb.DTOs.Charms;
 
 public sealed record CharmDto(
     Guid Id,

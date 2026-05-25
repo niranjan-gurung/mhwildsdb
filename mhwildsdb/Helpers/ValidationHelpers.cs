@@ -1,6 +1,4 @@
-﻿using mhwildsdb.DTOs.Talismans.CharmRank;
-
-namespace mhwildsdb.Helpers;
+﻿namespace mhwildsdb.Helpers;
 
 public static class ValidationHelpers
 {

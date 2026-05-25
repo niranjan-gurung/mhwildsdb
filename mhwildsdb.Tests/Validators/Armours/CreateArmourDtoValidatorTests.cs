@@ -84,7 +84,7 @@ public class CreateArmourDtoValidatorTests
 
     [Theory]
     [InlineData(0)]   // below minimum
-    [InlineData(9)]   // above maximum
+    [InlineData(13)]   // above maximum
     public async Task Validate_WithInvalidRarity_ShouldFail(int rarity)
     {
         var dto = new CreateArmourDto(

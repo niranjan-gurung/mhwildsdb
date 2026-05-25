@@ -1,6 +1,6 @@
 ﻿using mhwildsdb.Entities.Skills;
 
-namespace mhwildsdb.Entities.Talismans;
+namespace mhwildsdb.Entities.Charms;
 
 public class CharmRank : EntityBase
 {

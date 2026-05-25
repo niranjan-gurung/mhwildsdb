@@ -1,4 +1,4 @@
-﻿namespace mhwildsdb.Entities.Talismans;
+﻿namespace mhwildsdb.Entities.Charms;
 
 public class Charm : EntityBase
 {

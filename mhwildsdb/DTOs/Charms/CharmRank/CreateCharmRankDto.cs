@@ -1,4 +1,4 @@
-﻿namespace mhwildsdb.DTOs.Talismans.CharmRank;
+﻿namespace mhwildsdb.DTOs.Charms.CharmRank;
 
 public sealed record CreateCharmRankDto(
     string Name,

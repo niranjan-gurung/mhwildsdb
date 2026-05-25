@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
-using mhwildsdb.DTOs.Talismans;
-using mhwildsdb.DTOs.Talismans.CharmRank;
+using mhwildsdb.DTOs.Charms;
+using mhwildsdb.DTOs.Charms.CharmRank;
 using mhwildsdb.Validators.CharmValidators;
 
 namespace mhwildsdb.Tests.Validators.Charms;

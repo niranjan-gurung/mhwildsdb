@@ -1,4 +1,4 @@
-﻿using mhwildsdb.Entities.Talismans;
+﻿using mhwildsdb.Entities.Charms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
