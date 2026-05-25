@@ -40,7 +40,11 @@ public class CharmRankConfiguration : IEntityTypeConfiguration<CharmRank>
         // charmranks -> skillranks: many - many
         builder.HasMany(cr => cr.Skills)
             .WithMany()
-            .UsingEntity(j => j.ToTable("CharmRankSkillRanks"));
+            .UsingEntity(j =>
+            {
+                j.ToTable("CharmRankSkillRanks");
+                j.Property<Guid>("SkillsId").HasColumnName("SkillRankId");
+            });
 
         builder.HasIndex(cr => cr.CharmId);
     }
