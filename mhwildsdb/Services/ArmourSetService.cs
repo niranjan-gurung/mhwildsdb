@@ -59,7 +59,7 @@ public class ArmourSetService(
             .FirstAsync();
     }
 
-    public async Task<ICollection<ArmourDto>> CreateArmourRangeAsync(ICollection<CreateArmourSetDto> requests)
+    public async Task<ICollection<ArmourSetDto>> CreateArmourRangeAsync(ICollection<CreateArmourSetDto> requests)
     {
         // TODO
         throw new NotImplementedException();

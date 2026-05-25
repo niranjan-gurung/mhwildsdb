@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using mhwildsdb.DTOs.Skills.Skill;
+using mhwildsdb.DTOs.Skills;
 
 namespace mhwildsdb.Validators.SkillValidators
 {

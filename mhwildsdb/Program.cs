@@ -40,6 +40,8 @@ try
         options.SubstituteApiVersionInUrl = true;
     });
 
+
+    // additional fields for problem details response for global exception handler
     builder.Services.AddProblemDetails(options =>
     {
         options.CustomizeProblemDetails = ctx =>
@@ -54,9 +56,9 @@ try
     builder.Services.AddOpenApi();
 
     builder.Services.AddScoped(typeof(ValidateFilter<>));
-    builder.Services.AddTransient<ISkillService, SkillService>();
-    builder.Services.AddTransient<IArmourService, ArmourService>();
-    builder.Services.AddTransient<IArmourSetService, ArmourSetService>();
+
+    // register all services
+    builder.Services.AddServices();
 
     // register database context
     builder.Services.AddDbContext<MhwildsDbContext>(options =>
@@ -77,8 +79,8 @@ try
         app.MapOpenApi();
         app.MapScalarApiReference();
 
-        Log.Information("Using database: {Database}",
-            builder.Configuration.GetConnectionString("Database"));
+        //Log.Information("Using database: {Database}",
+        //    builder.Configuration.GetConnectionString("Database"));
     }
 
     /* CORS setup 

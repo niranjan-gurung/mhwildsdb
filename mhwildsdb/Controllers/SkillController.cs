@@ -1,5 +1,5 @@
 ﻿using Asp.Versioning;
-using mhwildsdb.DTOs.Skills.Skill;
+using mhwildsdb.DTOs.Skills;
 using mhwildsdb.Filters;
 using mhwildsdb.Services;
 using Microsoft.AspNetCore.Mvc;

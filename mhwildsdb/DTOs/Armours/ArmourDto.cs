@@ -12,5 +12,5 @@ public sealed record ArmourDto(
     int Defense,
     ResistancesDto Resistances,
     ICollection<int> Slots,
-    ICollection<SkillRankDetailDto> Skills,
+    IReadOnlyList<SkillRankDetailDto> Skills,
     ArmourSetSummaryDto? ArmourSet);

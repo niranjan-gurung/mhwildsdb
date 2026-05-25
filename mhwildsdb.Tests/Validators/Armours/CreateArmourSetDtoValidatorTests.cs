@@ -2,7 +2,7 @@
 using mhwildsdb.DTOs.Armours.ArmourSet;
 using mhwildsdb.Validators.ArmourValidators;
 
-namespace mhwildsdb.Tests.Validators;
+namespace mhwildsdb.Tests.Validators.Armours;
 
 public class CreateArmourSetDtoValidatorTests
 {

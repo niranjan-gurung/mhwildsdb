@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
-using mhwildsdb.DTOs.Skills.Skill;
+using mhwildsdb.DTOs.Skills;
 using mhwildsdb.DTOs.Skills.SkillRank;
 using mhwildsdb.Validators.SkillValidators;
 
-namespace mhwildsdb.Tests.Validators;
+namespace mhwildsdb.Tests.Validators.Skills;
 
 public class CreateSkillDtoValidatorTests
 {

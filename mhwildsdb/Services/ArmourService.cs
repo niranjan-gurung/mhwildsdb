@@ -39,7 +39,10 @@ public class ArmourService(
 
         _logger.LogInformation("Created new armour with {ArmourId}", armour.Id);
 
-        return armour.ToDto();
+        return await GetArmourQuery()
+            .Where(a => a.Id == armour.Id)
+            .Select(a => a.ToDto())
+            .FirstAsync();
     }
 
     public async Task<ICollection<ArmourDto>> CreateArmourRangeAsync(ICollection<CreateArmourDto> requests)
@@ -90,27 +93,24 @@ public class ArmourService(
 
         _logger.LogInformation("Created {Count} new armours", armours.Count);
 
-        return armours.Select(a => a.ToDto()).ToList();
+        var armourIds = armours.Select(a => a.Id).ToList();
+
+        return await GetArmourQuery()
+            .Where(a => armourIds.Contains(a.Id))
+            .Select(a => a.ToDto())
+            .ToListAsync();
     }
 
     public async Task<IEnumerable<ArmourDto>> GetAllArmoursAsync()
     {
-        return await _context.Armours
-            .AsNoTracking()
-            .Include(a => a.SkillRanks)
-                .ThenInclude(asr => asr.Skill)
-            .Include(a => a.ArmourSet)
+        return await GetArmourQuery()
             .Select(a => a.ToDto())
             .ToListAsync();
     }
 
     public async Task<ArmourDto> GetArmourByIdAsync(Guid id)
     {
-        var armour = await _context.Armours
-            .AsNoTracking()
-            .Include(a => a.SkillRanks)
-                .ThenInclude(asr => asr.Skill)
-            .Include(a => a.ArmourSet)
+        var armour = await GetArmourQuery()
             .FirstOrDefaultAsync(a => a.Id == id);
 
         if (armour is null)
@@ -166,5 +166,14 @@ public class ArmourService(
             throw new NotFoundException("SkillRanks", string.Join(", ", missingIds));
 
         return skillRanks;
+    }
+
+    private IQueryable<Armour> GetArmourQuery()
+    {
+        return _context.Armours
+            .AsNoTracking()
+            .Include(a => a.SkillRanks)
+                .ThenInclude(sr => sr.Skill)
+            .Include(a => a.ArmourSet);
     }
 }

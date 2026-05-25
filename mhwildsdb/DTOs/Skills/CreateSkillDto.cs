@@ -1,6 +1,6 @@
 ﻿using mhwildsdb.DTOs.Skills.SkillRank;
 
-namespace mhwildsdb.DTOs.Skills.Skill;
+namespace mhwildsdb.DTOs.Skills;
 
 public sealed record CreateSkillDto(
     string Name, 

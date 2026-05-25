@@ -1,4 +1,4 @@
-﻿using mhwildsdb.DTOs.Skills.Skill;
+﻿using mhwildsdb.DTOs.Skills;
 using mhwildsdb.Entities.Skills;
 using mhwildsdb.Exceptions;
 using mhwildsdb.Helpers.Extensions.Mapping;

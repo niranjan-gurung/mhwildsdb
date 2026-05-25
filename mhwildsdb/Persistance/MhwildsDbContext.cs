@@ -1,5 +1,6 @@
 ﻿using mhwildsdb.Entities.Armours;
 using mhwildsdb.Entities.Skills;
+using mhwildsdb.Entities.Talismans;
 using Microsoft.EntityFrameworkCore;
 
 namespace mhwildsdb.Persistance;
@@ -10,6 +11,8 @@ public class MhwildsDbContext(DbContextOptions<MhwildsDbContext> options) : DbCo
     public DbSet<SkillRank> SkillRanks { get; set; }
     public DbSet<Armour> Armours { get; set; }
     public DbSet<ArmourSet> ArmourSets { get; set; }
+    public DbSet<Charm> Charms { get; set; }
+    public DbSet<CharmRank> CharmRanks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,4 +1,6 @@
-﻿namespace mhwildsdb.Helpers;
+﻿using mhwildsdb.DTOs.Talismans.CharmRank;
+
+namespace mhwildsdb.Helpers;
 
 public static class ValidationHelpers
 {
@@ -12,5 +14,12 @@ public static class ValidationHelpers
         return collection.Select(selector)
                 .Distinct()
                 .Count() == collection.Count;
+    }
+
+    public static bool BeSequential<T>(ICollection<T> collection, Func<T, int> selector)
+    {
+        return collection.Select(selector)
+            .OrderBy(level => level)
+            .SequenceEqual(Enumerable.Range(1, collection.Count));
     }
 }

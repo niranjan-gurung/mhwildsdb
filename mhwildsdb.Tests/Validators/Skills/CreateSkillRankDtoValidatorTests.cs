@@ -2,7 +2,7 @@
 using mhwildsdb.DTOs.Skills.SkillRank;
 using mhwildsdb.Validators.SkillValidators;
 
-namespace mhwildsdb.Tests.Validators;
+namespace mhwildsdb.Tests.Validators.Skills;
 
 public class CreateSkillRankDtoValidatorTests
 {

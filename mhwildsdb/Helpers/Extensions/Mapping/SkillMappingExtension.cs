@@ -1,4 +1,4 @@
-﻿using mhwildsdb.DTOs.Skills.Skill;
+﻿using mhwildsdb.DTOs.Skills;
 using mhwildsdb.DTOs.Skills.SkillRank;
 using mhwildsdb.Entities.Skills;
 
@@ -16,14 +16,14 @@ public static class SkillMappingExtension
         );
 
     public static SkillRankDto ToDto(this SkillRank rank) =>
-        new(rank.Id, rank.Level, rank.Description, rank.Name, rank.SetPieceRequired);
+        new(rank.Id, rank.Level, rank.Name, rank.Description, rank.SetPieceRequired);
 
     public static SkillRankDetailDto ToDetailDto(this SkillRank rank) =>
         new(
             rank.Id,
             rank.Level,
-            rank.Description,
             rank.Name,
+            rank.Description,
             rank.SetPieceRequired,
             rank.Skill.Id,
             rank.Skill.Name

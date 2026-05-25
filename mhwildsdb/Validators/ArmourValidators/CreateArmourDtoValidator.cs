@@ -30,9 +30,10 @@ public class CreateArmourDtoValidator : AbstractValidator<CreateArmourDto>
             .Must(ValidationHelpers.BeValidName)
                 .WithMessage("{PropertyName} must contain only letters.");
 
+        // updated from 8 -> 12 to accomodate for master rank (upcoming)
         RuleFor(x => x.Rarity)
             .NotEmpty().WithMessage("{PropertyName} is required.")
-            .InclusiveBetween(1, 8).WithMessage("{PropertyName} must be between 1 and 8.");
+            .InclusiveBetween(1, 12).WithMessage("{PropertyName} must be between 1 and 12.");
 
         RuleFor(x => x.Defense)
             .NotEmpty().WithMessage("{PropertyName} is required.");
