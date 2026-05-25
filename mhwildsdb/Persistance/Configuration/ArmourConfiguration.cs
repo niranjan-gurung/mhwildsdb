@@ -20,9 +20,10 @@ public class ArmourConfiguration : IEntityTypeConfiguration<Armour>
             .IsRequired()
             .HasMaxLength(5);
 
+        // from 4 -> 6 to accommodate for the upcoming master rank
         builder.Property(s => s.Rank)
             .IsRequired()
-            .HasMaxLength(4);
+            .HasMaxLength(6);
 
         builder.Property(s => s.Rarity).IsRequired();
         builder.Property(s => s.Defense).IsRequired();
