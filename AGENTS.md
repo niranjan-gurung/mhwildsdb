@@ -149,7 +149,7 @@ dotnet run --project mhwildsdb
 3. **Never modify files in `Entities/`** without explicit instruction — entity changes require migrations.
 4. **Never hand-edit files in `Migrations/`** — always use `dotnet ef migrations add`.
 5. **Keep commits atomic** — one logical change per commit with a clear message.
-6. **Write tests** for any new service method or validation helper methods added.
+6. **Write tests** for any new service method or any non-trivial logic added in `ValidationHelpers.cs`.
 
 ---
 
@@ -178,5 +178,6 @@ When adding a new aggregate (e.g. `Decoration`, `Charm`):
 - Do not use AutoMapper or any other mapping library — use the existing extension method pattern
 - Do not use public setters on entity properties
 - Do not bypass `ValidateFilter<T>` by manually calling validators in services
+- Do not write tests for FluentValidation validators — validator tests are intentionally omitted from this project
 - Do not expose internal exception details in production responses
 - Do not add new NuGet packages without flagging it — keep dependencies minimal
