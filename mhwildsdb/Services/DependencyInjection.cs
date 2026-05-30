@@ -11,6 +11,7 @@ public static class DependencyInjection
         services.AddScoped<IArmourSetService, ArmourSetService>();
         services.AddScoped<ICharmService, CharmService>();
         services.AddScoped<IDecorationService, DecorationService>();
+        services.AddScoped<IWeaponService, WeaponService>();
 
         return services;
     }

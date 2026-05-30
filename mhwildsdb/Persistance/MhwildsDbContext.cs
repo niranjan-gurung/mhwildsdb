@@ -2,6 +2,7 @@
 using mhwildsdb.Entities.Armours;
 using mhwildsdb.Entities.Charms;
 using mhwildsdb.Entities.Skills;
+using mhwildsdb.Entities.Weapons;
 using Microsoft.EntityFrameworkCore;
 
 namespace mhwildsdb.Persistance;
@@ -15,6 +16,7 @@ public class MhwildsDbContext(DbContextOptions<MhwildsDbContext> options) : DbCo
     public DbSet<Charm> Charms { get; set; }
     public DbSet<CharmRank> CharmRanks { get; set; }
     public DbSet<Decoration> Decorations { get; set; }
+    public DbSet<Weapon> Weapons { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

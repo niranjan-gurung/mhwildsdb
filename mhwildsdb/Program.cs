@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Asp.Versioning;
 using FluentValidation;
 using mhwildsdb.Exceptions.Handlers;
@@ -52,7 +54,11 @@ try
         };
     });
 
-    builder.Services.AddControllers();
+    builder.Services.AddControllers()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+        });
     builder.Services.AddOpenApi();
 
     builder.Services.AddScoped(typeof(ValidateFilter<>));
